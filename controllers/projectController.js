@@ -158,7 +158,7 @@ export const createProject = async (req, res) => {
       return res.status(400).json({ message: "Project ID already exists" });
     }
 
-    // 🔥 Calculate financials
+    // Calculate financials
     const financials = await calculateProjectFinancials(name, revenue || 0);
 
     const newProject = await Project.create({

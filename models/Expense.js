@@ -18,7 +18,7 @@ const expenseSchema = new mongoose.Schema(
       unique: true, // EXP001
     },
     date: {
-      type: String, // store like "2026-06-01" to match frontend
+      type: Date, // store like "2026-06-01" to match frontend
       required: true,
     },
     supplier: {

@@ -3,15 +3,17 @@ import {
   getPayments,
   createPayment,
   deletePayment,
-  getSupplierProjectBill
+  getSupplierProjectBill,
+  updatePayment
 } from "../controllers/paymentController.js";
-
+import { protect,authorizeRoles } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
-router.get("/bill", getSupplierProjectBill);
-router.get("/", getPayments);
-router.post("/", createPayment);
-router.delete("/:id", deletePayment);
+router.get("/bill",protect, getSupplierProjectBill);
+router.get("/",protect, getPayments);
+router.post("/",protect, createPayment);
+router.put("/:id", protect, updatePayment);
+router.delete("/:id",protect, deletePayment);
 
 
 export default router;

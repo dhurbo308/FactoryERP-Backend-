@@ -1,7 +1,7 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-
+import Role from "../models/Role.js";
 
 // REGISTER
 export const register = async (req, res) => {
@@ -53,16 +53,46 @@ export const login = async (req, res) => {
       { expiresIn: "7d" }
     );
 
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
     res.json({
-      token,
       user: {
         name: user.name,
         email: user.email,
         role: user.role,
       },
     });
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
+// export const getMe = async (req, res) => {
+//   res.json(req.user);
+// };
+
+export const getMe = async (req, res) => {
+  const role = await Role.findOne({ name: req.user.role });
+
+  res.json({
+    _id: req.user._id,
+    name: req.user.name,
+    email: req.user.email,
+    role: req.user.role,
+    permissions: role?.permissions || {},
+  });
+};
+
+
+export const logout = (req, res) => {
+  res.clearCookie("token");
+  res.json({ message: "Logged out successfully" });
+};
+
 

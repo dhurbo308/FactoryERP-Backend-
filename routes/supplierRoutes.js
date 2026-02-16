@@ -6,13 +6,13 @@ import {
   updateSupplier,
   deleteSupplier,
 } from "../controllers/supplierController.js";
-
+import { protect, authorizeRoles } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
-router.get("/", getSuppliers);
-router.get("/:id", getSupplierById);
-router.post("/", createSupplier);
-router.put("/:id", updateSupplier);
-router.delete("/:id", deleteSupplier);
+router.get("/",protect, getSuppliers);
+router.get("/:id",protect, getSupplierById);
+router.post("/",protect, createSupplier);
+router.put("/:id",protect, updateSupplier);
+router.delete("/:id",protect, deleteSupplier);
 
 export default router;

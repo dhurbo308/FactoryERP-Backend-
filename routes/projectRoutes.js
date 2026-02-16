@@ -10,10 +10,10 @@ import { protect, authorizeRoles } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.get("/", getProjects);
+router.get("/",protect, getProjects);
 router.get("/:id", getProjectById);
 router.post("/",protect, authorizeRoles("admin", "manager"), createProject);
-router.put("/:id", updateProject);
+router.put("/:id",protect, updateProject);
 router.delete("/:id", protect, authorizeRoles("admin"), deleteProject);
 
 export default router;

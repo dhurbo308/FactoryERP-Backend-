@@ -47,7 +47,7 @@ export const createPayment = async (req, res) => {
       status,
     });
 
-    // 🔥 Update supplier paid & due
+    // Update supplier paid & due
     const supplierDoc = await Supplier.findOne({ name: supplier });
 
     if (supplierDoc) {
@@ -61,6 +61,42 @@ export const createPayment = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const updatePayment = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const oldPayment = await Payment.findById(id);
+    if (!oldPayment) {
+      return res.status(404).json({ message: "Payment not found" });
+    }
+
+    const updatedPayment = await Payment.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+
+    // Update supplier paid & due properly
+    const supplierDoc = await Supplier.findOne({ name: oldPayment.supplier });
+
+    if (supplierDoc) {
+      // rollback old paidAmount
+      supplierDoc.paid -= oldPayment.paidAmount;
+
+      // apply new paidAmount
+      supplierDoc.paid += updatedPayment.paidAmount;
+
+      // recalculate due
+      supplierDoc.due = supplierDoc.totalBill - supplierDoc.paid;
+
+      await supplierDoc.save();
+    }
+
+    res.json(updatedPayment);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 
 // DELETE payment
 export const deletePayment = async (req, res) => {

@@ -1,0 +1,322 @@
+{
+  "createdAt": "2026-02-16T12:10:46.638Z",
+  "users": [
+    {
+      "permissions": {
+        "dashboard": true,
+        "projects": false,
+        "expenses": false,
+        "payments": false,
+        "reports": false,
+        "suppliers": false,
+        "settings": false,
+        "backup": false
+      },
+      "_id": "6992940493db441c199af067",
+      "name": "Dhurbo",
+      "email": "dhurbo@gmail.com",
+      "password": "$2b$10$vjR3JB9DVGmpl6mzmwaTLOPO17nA51/SNtCBJnAzm7icYenJsWhIu",
+      "role": "admin",
+      "createdAt": "2026-02-16T03:50:28.248Z",
+      "updatedAt": "2026-02-16T03:50:28.248Z",
+      "__v": 0
+    },
+    {
+      "permissions": {
+        "dashboard": true,
+        "projects": false,
+        "expenses": false,
+        "payments": false,
+        "reports": false,
+        "suppliers": false,
+        "settings": false,
+        "backup": false
+      },
+      "_id": "6992d200aa5e98f3f77c4352",
+      "name": "Alam",
+      "email": "alam@gmail.com",
+      "password": "$2b$10$J94FjDLaUCyiLLfY3/hnpetGUISydyL8Ft7hnePLrYTDx5A.8h8dG",
+      "role": "manager",
+      "createdAt": "2026-02-16T08:14:56.903Z",
+      "updatedAt": "2026-02-16T08:14:56.903Z",
+      "__v": 0
+    },
+    {
+      "permissions": {
+        "dashboard": true,
+        "projects": false,
+        "expenses": false,
+        "payments": false,
+        "reports": false,
+        "suppliers": false,
+        "settings": false,
+        "backup": false
+      },
+      "_id": "6992d2c5aa5e98f3f77c4359",
+      "name": "Rakib",
+      "email": "rakib@gmail.com",
+      "password": "$2b$10$2Vf24YA14QgYK8u3LugpCusLAiuWpIOnGW50r00mb1QEdcu2A70pO",
+      "role": "staff",
+      "createdAt": "2026-02-16T08:18:13.136Z",
+      "updatedAt": "2026-02-16T08:18:13.136Z",
+      "__v": 0
+    }
+  ],
+  "suppliers": [
+    {
+      "_id": "699182f7bafc255b0083eea6",
+      "supplierId": "SUP1857",
+      "name": "Rahman Textile Mills",
+      "contact": "01789463821",
+      "address": "Tejgoan, Dhaka",
+      "totalBill": 200000,
+      "paid": 0,
+      "due": 200000,
+      "createdAt": "2026-02-15T08:25:27.325Z",
+      "updatedAt": "2026-02-16T10:17:57.616Z",
+      "__v": 0
+    },
+    {
+      "_id": "69918312bafc255b0083eeaa",
+      "supplierId": "SUP6087",
+      "name": "Alam Trading",
+      "contact": "01874398347",
+      "address": "Gulsan, Dhaka",
+      "totalBill": 0,
+      "paid": 0,
+      "due": 0,
+      "createdAt": "2026-02-15T08:25:54.331Z",
+      "updatedAt": "2026-02-16T07:21:47.087Z",
+      "__v": 0
+    },
+    {
+      "_id": "69918334bafc255b0083eeae",
+      "supplierId": "SUP5862",
+      "name": "Karim Chemical Store",
+      "contact": "01784736484",
+      "address": "Mirpur, Dhaka",
+      "totalBill": 298800,
+      "paid": 20000,
+      "due": 278800,
+      "createdAt": "2026-02-15T08:26:28.405Z",
+      "updatedAt": "2026-02-16T08:11:06.723Z",
+      "__v": 0
+    }
+  ],
+  "projects": [
+    {
+      "_id": "69919597ba0de6a58d57eb12",
+      "projectId": "PRJ4275",
+      "name": "Handicraft Basket Order",
+      "desc": "Handwoven baskets with traditional design",
+      "startDate": "2026-02-13T00:00:00.000Z",
+      "quantity": 1000,
+      "status": "Planning",
+      "totalCost": 200000,
+      "profit": 0,
+      "createdAt": "2026-02-15T09:44:55.423Z",
+      "updatedAt": "2026-02-16T10:17:57.622Z",
+      "__v": 0,
+      "revenue": 0
+    },
+    {
+      "revenue": 0,
+      "_id": "699195ecba0de6a58d57eb17",
+      "projectId": "PRJ4274",
+      "name": "Handicraft Basket Order",
+      "desc": "Handwoven baskets with traditional design",
+      "startDate": "2026-02-13T00:00:00.000Z",
+      "quantity": 1000,
+      "status": "Planning",
+      "totalCost": 0,
+      "profit": 0,
+      "createdAt": "2026-02-15T09:46:20.144Z",
+      "updatedAt": "2026-02-15T09:46:20.144Z",
+      "__v": 0
+    },
+    {
+      "revenue": 0,
+      "_id": "699196dc241dfdc9f81ef137",
+      "projectId": "PRJ4272",
+      "name": "Handicraft Basket Order",
+      "desc": "Handwoven baskets with traditional design",
+      "startDate": "2026-02-13T00:00:00.000Z",
+      "quantity": 1000,
+      "status": "Completed",
+      "totalCost": 0,
+      "profit": 0,
+      "createdAt": "2026-02-15T09:50:20.571Z",
+      "updatedAt": "2026-02-15T09:50:20.571Z",
+      "__v": 0
+    },
+    {
+      "revenue": 0,
+      "_id": "6991973c127ad21d9d626e4d",
+      "projectId": "PRJ4286",
+      "name": "Denim Jeans Batch #32",
+      "desc": "Slim fit demin Jeans",
+      "startDate": "2026-02-13T00:00:00.000Z",
+      "quantity": 1000,
+      "status": "In Progress",
+      "totalCost": 100000,
+      "profit": 0,
+      "createdAt": "2026-02-15T09:51:56.193Z",
+      "updatedAt": "2026-02-15T12:45:06.288Z",
+      "__v": 0
+    },
+    {
+      "_id": "6991c98d289889e4dd22130d",
+      "projectId": "PRJ6651",
+      "name": "Project 1",
+      "desc": "project 1",
+      "startDate": "2026-02-14T00:00:00.000Z",
+      "quantity": 1000,
+      "status": "In Progress",
+      "totalCost": 0,
+      "revenue": 0,
+      "profit": 0,
+      "createdAt": "2026-02-15T13:26:37.054Z",
+      "updatedAt": "2026-02-15T13:26:37.054Z",
+      "__v": 0
+    },
+    {
+      "_id": "6992c14d556f3ed51a1dc81b",
+      "projectId": "PRJ2003",
+      "name": "project 2",
+      "desc": "project 2",
+      "startDate": "2026-02-15T18:00:00.000Z",
+      "quantity": 3000,
+      "status": "In Progress",
+      "totalCost": 0,
+      "revenue": 0,
+      "profit": 0,
+      "createdAt": "2026-02-16T07:03:41.330Z",
+      "updatedAt": "2026-02-16T07:21:47.091Z",
+      "__v": 0
+    }
+  ],
+  "expenses": [
+    {
+      "_id": "6991a119dc9752612b04baca",
+      "expenseId": "EXP7446",
+      "date": "2026-02-10T00:00:00.000Z",
+      "supplier": "Karim Chemical Store",
+      "project": "p 1",
+      "category": "Raw Material",
+      "expenseItems": [
+        {
+          "itemName": "Cotton",
+          "quantity": 500,
+          "unit": "Pcs",
+          "rate": 400
+        }
+      ],
+      "items": "1 items",
+      "amount": 200000,
+      "createdAt": "2026-02-15T10:34:01.419Z",
+      "updatedAt": "2026-02-15T10:34:01.419Z",
+      "__v": 0
+    },
+    {
+      "_id": "6991a25edc9752612b04badd",
+      "expenseId": "EXP8172",
+      "date": "2026-02-08T00:00:00.000Z",
+      "supplier": "Karim Chemical Store",
+      "project": "p 3",
+      "category": "Raw Material",
+      "expenseItems": [
+        {
+          "itemName": "Pen",
+          "quantity": 1000,
+          "unit": "Pcs",
+          "rate": 3
+        },
+        {
+          "itemName": "Pencil",
+          "quantity": 200,
+          "unit": "Pcs",
+          "rate": 4
+        }
+      ],
+      "items": "2 items",
+      "amount": 3800,
+      "createdAt": "2026-02-15T10:39:26.501Z",
+      "updatedAt": "2026-02-15T10:39:26.501Z",
+      "__v": 0
+    },
+    {
+      "_id": "6991bfd2822115e49536d4e8",
+      "expenseId": "EXP4127",
+      "date": "2026-02-08T00:00:00.000Z",
+      "supplier": "Karim Chemical Store",
+      "project": "Denim Jeans Batch #32",
+      "category": "Raw Material",
+      "expenseItems": [
+        {
+          "itemName": "Cotton",
+          "quantity": 200,
+          "unit": "Kg",
+          "rate": 500
+        }
+      ],
+      "items": "1 items",
+      "amount": 100000,
+      "createdAt": "2026-02-15T12:45:06.267Z",
+      "updatedAt": "2026-02-15T12:45:06.267Z",
+      "__v": 0
+    },
+    {
+      "_id": "6992eed56ca22402d446aa49",
+      "expenseId": "EXP8870",
+      "date": "2026-02-16T00:00:00.000Z",
+      "supplier": "Rahman Textile Mills",
+      "project": "Handicraft Basket Order",
+      "category": "Parts",
+      "expenseItems": [
+        {
+          "itemName": "Zippers",
+          "quantity": 10000,
+          "unit": "Pcs",
+          "rate": 20
+        }
+      ],
+      "items": "1 items",
+      "amount": 200000,
+      "createdAt": "2026-02-16T10:17:57.609Z",
+      "updatedAt": "2026-02-16T10:17:57.609Z",
+      "__v": 0
+    }
+  ],
+  "payments": [
+    {
+      "_id": "6991ae8b0f882d664f191426",
+      "paymentId": "PAY9389",
+      "date": "2026-02-09",
+      "supplier": "Karim Chemical Store\t",
+      "project": "p 1",
+      "totalBill": 150000,
+      "paidAmount": 50000,
+      "due": 100000,
+      "method": "Bank Transfer",
+      "status": "Partial",
+      "createdAt": "2026-02-15T11:31:23.853Z",
+      "updatedAt": "2026-02-15T11:31:23.853Z",
+      "__v": 0
+    },
+    {
+      "_id": "6992d0c9aa5e98f3f77c431e",
+      "paymentId": "PAY2306",
+      "date": "2026-02-16",
+      "supplier": "Karim Chemical Store",
+      "project": "Denim Jeans Batch #32",
+      "totalBill": 100000,
+      "paidAmount": 20000,
+      "due": 80000,
+      "method": "Bank Transfer",
+      "status": "Partial",
+      "createdAt": "2026-02-16T08:09:45.776Z",
+      "updatedAt": "2026-02-16T08:11:06.711Z",
+      "__v": 0
+    }
+  ]
+}
