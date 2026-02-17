@@ -49,7 +49,7 @@ export const restoreBackup = async (req, res) => {
 
     const data = await fs.readJson(filePath);
 
-    // ⚠️ Clear DB first
+    //  Clear DB first
     await User.deleteMany();
     await Supplier.deleteMany();
     await Project.deleteMany();

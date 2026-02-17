@@ -5,12 +5,14 @@ import {
   updateSalary,
   deleteSalary,
 } from "../controllers/salaryController.js";
+import { protect } from "../middleware/authMiddleware.js";
+import { checkPermission } from "../middleware/permissionMiddleware.js";
 
 const router = express.Router();
 
-router.get("/", getSalaries);
-router.post("/", createSalary);
-router.put("/:id", updateSalary);
-router.delete("/:id", deleteSalary);
+router.get("/",protect, checkPermission("salary"), getSalaries);
+router.post("/",protect, checkPermission("salary"), createSalary);
+router.put("/:id",protect, checkPermission("salary"), updateSalary);
+router.delete("/:id",protect, checkPermission("salary"), deleteSalary);
 
 export default router;

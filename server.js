@@ -16,6 +16,7 @@ import roleRoutes from "./routes/roleRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/userRoutes.js";
+import saleRoutes from "./routes/saleRoutes.js";
 
 dotenv.config();
 connectDB();
@@ -44,6 +45,8 @@ app.use("/api/settings", settingsRoutes);
 app.use("/api/backup", backupRoutes);
 app.use("/api/roles", roleRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/sales", saleRoutes);
+
 // test route
 app.get("/", (req, res) => {
   res.send("Factory ERP Backend Running...");
@@ -54,3 +57,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+

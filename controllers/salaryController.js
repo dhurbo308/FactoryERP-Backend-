@@ -9,9 +9,38 @@ export const getSalaries = async (req, res) => {
   }
 };
 
+// export const createSalary = async (req, res) => {
+//   try {
+//     const { billId, month, category, type, amount, status } = req.body;
+
+//     const exists = await Salary.findOne({ billId });
+//     if (exists) {
+//       return res.status(400).json({ message: "Bill ID already exists" });
+//     }
+
+//     const salary = await Salary.create({
+//       billId,
+//       month,
+//       category,
+//       type,
+//       amount,
+//       status,
+//     });
+
+//     res.status(201).json(salary);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
 export const createSalary = async (req, res) => {
   try {
     const { billId, month, category, type, amount, status } = req.body;
+
+    // ✅ Required field validation
+    if (!billId || !month || !category || !type || !amount || !status) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
 
     const exists = await Salary.findOne({ billId });
     if (exists) {
@@ -32,6 +61,7 @@ export const createSalary = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 export const updateSalary = async (req, res) => {
   try {

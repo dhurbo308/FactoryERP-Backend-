@@ -7,13 +7,14 @@ import {
   updatePayment
 } from "../controllers/paymentController.js";
 import { protect,authorizeRoles } from "../middleware/authMiddleware.js";
+import { checkPermission } from "../middleware/permissionMiddleware.js";
 const router = express.Router();
 
-router.get("/bill",protect, getSupplierProjectBill);
-router.get("/",protect, getPayments);
-router.post("/",protect, createPayment);
-router.put("/:id", protect, updatePayment);
-router.delete("/:id",protect, deletePayment);
+router.get("/bill",protect,checkPermission("payments"), getSupplierProjectBill);
+router.get("/",protect,checkPermission("payments"), getPayments);
+router.post("/",protect,checkPermission("payments"), createPayment);
+router.put("/:id", protect,checkPermission("payments"), updatePayment);
+router.delete("/:id",protect,checkPermission("payments"), deletePayment);
 
 
 export default router;

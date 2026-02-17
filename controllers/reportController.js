@@ -22,21 +22,74 @@ const buildDateFilter = (req) => {
 // ==========================
 // Project Cost Report
 // ==========================
+// export const projectCostReport = async (req, res) => {
+//   try {
+//     const dateFilter = buildDateFilter(req);
+//     const projects = await Project.find();
+
+//     const report = await Promise.all(
+//       projects.map(async (p) => {
+//         const totalExpense = await Expense.aggregate([
+//           { $match: dateFilter },
+//           { $match: { project: p.name } },
+//           { $group: { _id: null, total: { $sum: "$amount" } } },
+//         ]);
+
+//         const cost = totalExpense[0]?.total || 0;
+//         const revenue = p.revenue || 0;
+//         const profit = revenue - cost;
+
+//         return {
+//           name: p.name,
+//           cost,
+//           revenue,
+//           profit,
+//         };
+//       })
+//     );
+
+//     res.json(report);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
 export const projectCostReport = async (req, res) => {
   try {
     const dateFilter = buildDateFilter(req);
+
     const projects = await Project.find();
 
     const report = await Promise.all(
       projects.map(async (p) => {
-        const totalExpense = await Expense.aggregate([
+
+        // ✅ Total Expense for project
+        const expenseAgg = await Expense.aggregate([
           { $match: dateFilter },
           { $match: { project: p.name } },
-          { $group: { _id: null, total: { $sum: "$amount" } } },
+          {
+            $group: {
+              _id: null,
+              total: { $sum: "$amount" },
+            },
+          },
         ]);
 
-        const cost = totalExpense[0]?.total || 0;
-        const revenue = p.revenue || 0;
+        const cost = expenseAgg[0]?.total || 0;
+
+        // ✅ Total Revenue from payments for project
+        const revenueAgg = await Payment.aggregate([
+          { $match: dateFilter },
+          { $match: { project: p.name } },
+          {
+            $group: {
+              _id: null,
+              total: { $sum: "$paidAmount" },
+            },
+          },
+        ]);
+
+        const revenue = revenueAgg[0]?.total || 0;
+
         const profit = revenue - cost;
 
         return {
@@ -128,34 +181,94 @@ export const categoryExpenseReport = async (req, res) => {
 // ==========================
 // Profit Loss Report
 // ==========================
+// export const profitLossReport = async (req, res) => {
+//   try {
+//     const dateFilter = buildDateFilter(req);
+//     const totalRevenueAgg = await Project.aggregate([
+//       { $match: dateFilter },
+//       {
+//         $group: {
+//           _id: null,
+//           revenue: { $sum: "$revenue" },
+//         },
+//       },
+//     ]);
+
+//     const revenue = totalRevenueAgg[0]?.revenue || 0;
+
+//     // Expenses (Project Expenses + Salary Bills)
+//     const totalExpenseAgg = await Expense.aggregate([
+//       { $group: { _id: "$category", amount: { $sum: "$amount" } } },
+//     ]);
+
+//     const salaryAgg = await SalaryBill.aggregate([
+//       { $group: { _id: "$category", amount: { $sum: "$amount" } } },
+//     ]);
+
+//     // merge both expense lists
+//     const expenseMap = {};
+
+//     totalExpenseAgg.forEach((e) => {
+//       expenseMap[e._id] = (expenseMap[e._id] || 0) + e.amount;
+//     });
+
+//     salaryAgg.forEach((s) => {
+//       expenseMap[s._id] = (expenseMap[s._id] || 0) + s.amount;
+//     });
+
+//     const expenses = Object.keys(expenseMap).map((key) => ({
+//       label: key,
+//       amount: expenseMap[key],
+//     }));
+
+//     res.json({ revenue, expenses });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
 export const profitLossReport = async (req, res) => {
   try {
     const dateFilter = buildDateFilter(req);
-    const totalRevenueAgg = await Project.aggregate([
+
+    // Total Revenue = sum of payments (income)
+    const revenueAgg = await Payment.aggregate([
       { $match: dateFilter },
       {
         $group: {
           _id: null,
-          revenue: { $sum: "$revenue" },
+          revenue: { $sum: "$paidAmount" },
         },
       },
     ]);
 
-    const revenue = totalRevenueAgg[0]?.revenue || 0;
+    const revenue = revenueAgg[0]?.revenue || 0;
 
-    // Expenses (Project Expenses + Salary Bills)
-    const totalExpenseAgg = await Expense.aggregate([
-      { $group: { _id: "$category", amount: { $sum: "$amount" } } },
+    // Expenses
+    const expenseAgg = await Expense.aggregate([
+      { $match: dateFilter },
+      {
+        $group: {
+          _id: "$category",
+          amount: { $sum: "$amount" },
+        },
+      },
     ]);
 
     const salaryAgg = await SalaryBill.aggregate([
-      { $group: { _id: "$category", amount: { $sum: "$amount" } } },
+      { $match: dateFilter },
+      {
+        $group: {
+          _id: "$category",
+          amount: { $sum: "$amount" },
+        },
+      },
     ]);
 
-    // merge both expense lists
+    // Merge expense + salary
     const expenseMap = {};
 
-    totalExpenseAgg.forEach((e) => {
+    expenseAgg.forEach((e) => {
       expenseMap[e._id] = (expenseMap[e._id] || 0) + e.amount;
     });
 
@@ -173,6 +286,7 @@ export const profitLossReport = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 
 export const exportPDF = async (req, res) => {

@@ -7,7 +7,14 @@ const salaryBillSchema = new mongoose.Schema(
     category: { type: String, required: true }, // Factory / Office
     type: { type: String, required: true },
     amount: { type: Number, required: true },
-    status: { type: String, required: true },
+    // status: { type: String, required: true },
+    status: {
+      type: String,
+      enum: ["Paid", "Unpaid"],
+      default: "Unpaid",
+      required: true,
+    },
+
   },
   { timestamps: true }
 );

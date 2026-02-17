@@ -33,8 +33,8 @@ const projectSchema = new mongoose.Schema(
       default: 0,
     },
     revenue: { 
-       type: Number, 
-       default: 0 },
+      type: Number, 
+      default: 0 },
     profit: {
       type: Number,
       default: 0,

@@ -9,6 +9,7 @@ import {
 } from "../controllers/settingsController.js";
 
 import { protect, authorizeRoles } from "../middleware/authMiddleware.js";
+import { checkPermission } from "../middleware/permissionMiddleware.js";
 
 const router = express.Router();
 
@@ -22,9 +23,9 @@ router.put(
 );
 
 // Units
-router.get("/units", protect, getUnits);
-router.post("/units", protect, authorizeRoles("admin"), createUnit);
-router.put("/units/:id", protect, authorizeRoles("admin"), updateUnit);
-router.delete("/units/:id", protect, authorizeRoles("admin"), deleteUnit);
+router.get("/units", protect, checkPermission("settings"), getUnits);
+router.post("/units", protect, checkPermission("settings"), authorizeRoles("admin"), createUnit);
+router.put("/units/:id", protect, checkPermission("settings"), authorizeRoles("admin"), updateUnit);
+router.delete("/units/:id", protect, checkPermission("settings"), authorizeRoles("admin"), deleteUnit);
 
 export default router;
