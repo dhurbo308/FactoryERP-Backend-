@@ -6,6 +6,10 @@ import {
   createUnit,
   updateUnit,
   deleteUnit,
+  getCategories,
+  createCategory,
+  updateCategory,
+  deleteCategory,
 } from "../controllers/settingsController.js";
 
 import { protect, authorizeRoles } from "../middleware/authMiddleware.js";
@@ -27,5 +31,32 @@ router.get("/units", protect, checkPermission("settings"), getUnits);
 router.post("/units", protect, checkPermission("settings"), authorizeRoles("admin"), createUnit);
 router.put("/units/:id", protect, checkPermission("settings"), authorizeRoles("admin"), updateUnit);
 router.delete("/units/:id", protect, checkPermission("settings"), authorizeRoles("admin"), deleteUnit);
+
+// Categories
+router.get("/categories", protect, checkPermission("settings"), getCategories);
+
+router.post(
+  "/categories",
+  protect,
+  checkPermission("settings"),
+  authorizeRoles("admin"),
+  createCategory
+);
+
+router.put(
+  "/categories/:id",
+  protect,
+  checkPermission("settings"),
+  authorizeRoles("admin"),
+  updateCategory
+);
+
+router.delete(
+  "/categories/:id",
+  protect,
+  checkPermission("settings"),
+  authorizeRoles("admin"),
+  deleteCategory
+);
 
 export default router;
