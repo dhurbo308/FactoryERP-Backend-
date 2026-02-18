@@ -6,7 +6,7 @@ import Role from "../models/Role.js";
 // REGISTER
 export const register = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email,phone, password, role } = req.body;
 
     const exists = await User.findOne({ email });
     if (exists) {
@@ -18,6 +18,7 @@ export const register = async (req, res) => {
     const user = await User.create({
       name,
       email,
+      phone: phone || "",
       password: hashedPassword,
       role: role || "staff",
     });
@@ -84,6 +85,7 @@ export const getMe = async (req, res) => {
     _id: req.user._id,
     name: req.user.name,
     email: req.user.email,
+    phone: req.user.phone,
     role: req.user.role,
     permissions: role?.permissions || {},
   });

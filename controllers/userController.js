@@ -14,6 +14,7 @@ export const getUsers = async (req, res) => {
           _id: u._id,
           name: u.name,
           email: u.email,
+          phone: u.phone,
           role: u.role,
           permissions: role?.permissions || {},
           createdAt: u.createdAt,
@@ -53,6 +54,25 @@ export const updateUserRole = async (req, res) => {
     await user.save();
 
     res.json({ message: "User role updated successfully", user });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+export const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    await user.deleteOne();
+
+    res.json({ message: "User deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -63,6 +63,7 @@
 // };
 
 import Role from "../models/Role.js";
+import User from "../models/User.js";
 
 // GET all roles
 export const getRoles = async (req, res) => {
@@ -113,6 +114,67 @@ export const createRole = async (req, res) => {
     });
 
     res.status(201).json(role);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// UPDATE ROLE NAME
+export const updateRole = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, description } = req.body;
+
+    if (!name) {
+      return res.status(400).json({ message: "Role name is required" });
+    }
+
+    const role = await Role.findById(id);
+    if (!role) {
+      return res.status(404).json({ message: "Role not found" });
+    }
+
+    // Prevent renaming admin
+    if (role.name === "admin") {
+      return res.status(403).json({ message: "Admin role cannot be renamed" });
+    }
+
+    role.name = name.toLowerCase();
+    role.description = description || role.description;
+
+    await role.save();
+
+    res.json(role);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const deleteRole = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const role = await Role.findById(id);
+    if (!role) {
+      return res.status(404).json({ message: "Role not found" });
+    }
+
+    // Prevent deleting admin role
+    if (role.name === "admin") {
+      return res.status(403).json({ message: "Admin role cannot be deleted" });
+    }
+
+    // Prevent deleting role if assigned to users
+    const usersWithRole = await User.findOne({ role: role.name });
+    if (usersWithRole) {
+      return res.status(400).json({
+        message: "Role is assigned to users. Reassign users first.",
+      });
+    }
+
+    await role.deleteOne();
+
+    res.json({ message: "Role deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
