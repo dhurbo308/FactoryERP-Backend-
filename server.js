@@ -22,6 +22,7 @@ dotenv.config();
 connectDB();
 
 const app = express();
+// origin: process.env.FRONTEND_URL
 
 // middleware
 app.use(cors({
